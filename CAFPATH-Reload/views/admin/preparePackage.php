@@ -30,7 +30,7 @@ $sqlOrders = "SELECT sh.num AS shipment_id, sh.date, cl.street, cl.colony, cl.nu
               FROM Shipment sh
               JOIN Client cl ON sh.client = cl.num
               JOIN Record rec ON rec.shipment = sh.num
-              WHERE rec.status = 'pedido realizado' 
+              WHERE rec.status = 'pedido realizado' AND sh.vehicle IS NULL AND sh.path IS NULL
               AND sh.warehouse = ? 
               AND NOT EXISTS (
                   SELECT 1 FROM Record rec2 

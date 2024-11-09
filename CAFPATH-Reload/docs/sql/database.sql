@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS Record (
 CREATE TABLE IF NOT EXISTS Assamble (
     employees INT NOT NULL,
     shipment INT NOT NULL,
+    status TINYINT(1) DEFAULT 0,
     PRIMARY KEY (employees, shipment),
     FOREIGN KEY (employees) REFERENCES Employees(num),
     FOREIGN KEY (shipment) REFERENCES Shipment(num)

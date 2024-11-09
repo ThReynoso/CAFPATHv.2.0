@@ -1,47 +1,29 @@
 <?php
+session_start();
 include '../../config/connection.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['employee_num'])) {
-    $employee_num = $_POST['employee_num'];
 
-    $sql = "SELECT warehouse FROM Employees WHERE num = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $employee_num);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $employeeData = $result->fetch_assoc();
-
-    if ($employeeData) {
-        $warehouse = $employeeData['warehouse'];
-        $sql = "SELECT V.number, V.license_plate, V.model
-                FROM Vehicle V
-                LEFT JOIN Vehicle_Assignment VA ON V.number = VA.vehicle_number
-                WHERE V.warehouse = ? AND VA.employee_num IS NULL";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $warehouse);
-        $stmt->execute();
-        $vehiculosDisponibles = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    } else {
-        echo "Empleado no encontrado.";
-    }
-    $stmt->close();
+if (!isset($_SESSION['num'])) {
+    die("Acceso no autorizado. Por favor inicie sesión.");
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['assign_vehicle'])) {
-    $employee_num = $_POST['employee_num'];
-    $vehicle_number = $_POST['vehicle_number'];
-    $assigned_date = date("Y-m-d");
 
-    $sql = "INSERT INTO Vehicle_Assignment (vehicle_number, employee_num, assigned_date) 
-            VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iis", $vehicle_number, $employee_num, $assigned_date);
+$employee_id = $_SESSION['num'];
 
-    if ($stmt->execute()) {
-        echo "Vehículo asignado correctamente al empleado.";
-    } else {
-        echo "Error al asignar vehículo: " . $stmt->error;
-    }
-    $stmt->close();
-}
+$sqlOrders = "SELECT sh.num AS shipment_id, sh.date, sh.delivery_date, 
+                     c.name AS client_name, c.lastname AS client_lastname, 
+                     c.street, c.colony, c.number AS client_number, 
+                     v.license_plate, v.model, 
+                     p.starting_point, p.end_point, p.starting_date, p.est_arrival
+              FROM Shipment sh
+              JOIN Assamble a ON a.shipment = sh.num
+              JOIN Client c ON c.num = sh.client
+              LEFT JOIN Vehicle v ON sh.vehicle = v.number
+              LEFT JOIN Path p ON sh.path = p.num
+              WHERE a.employees = ?";
+$stmtOrders = $conn->prepare($sqlOrders);
+$stmtOrders->bind_param("i", $employee_id);
+$stmtOrders->execute();
+$orders = $stmtOrders->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmtOrders->close();
 
 $conn->close();
 ?>
@@ -50,32 +32,55 @@ $conn->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Asignar Vehículo</title>
+    <title>Pedidos Asignados</title>
 </head>
 <body>
-    <h2>Asignar Vehículo a Empleado</h2>
-    <form method="POST">
-        <label for="employee_num">Número de Empleado:</label>
-        <input type="number" name="employee_num" id="employee_num" required>
-        <button type="submit">Buscar Vehículos Disponibles</button>
-    </form>
+    <h2>Pedidos Asignados</h2>
+    <?php if (!empty($orders)): ?>
+        <?php foreach ($orders as $order): ?>
+            <div>
+                <h3>Pedido ID: <?php echo $order['shipment_id']; ?></h3>
+                <p><strong>Fecha de Pedido:</strong> <?php echo $order['date']; ?></p>
+                <p><strong>Fecha de Entrega:</strong> <?php echo $order['delivery_date']; ?></p>
+                
+                <h4>Detalles del Cliente</h4>
+                <p><strong>Nombre:</strong> <?php echo $order['client_name'] . ' ' . $order['client_lastname']; ?></p>
+                <p><strong>Dirección:</strong> <?php echo $order['street'] . ', ' . $order['colony'] . ' ' . $order['client_number']; ?></p>
+                
+                <h4>Detalles del Vehículo</h4>
+                <p><strong>Placa:</strong> <?php echo $order['license_plate']; ?></p>
+                <p><strong>Modelo:</strong> <?php echo $order['model']; ?></p>
 
-    <?php if (isset($vehiculosDisponibles) && count($vehiculosDisponibles) > 0): ?>
-        <h3>Vehículos disponibles en el almacén del empleado</h3>
-        <form method="POST">
-            <input type="hidden" name="employee_num" value="<?php echo $employee_num; ?>">
-            <label for="vehicle_number">Seleccione un Vehículo:</label>
-            <select name="vehicle_number" id="vehicle_number" required>
-                <?php foreach ($vehiculosDisponibles as $vehiculo): ?>
-                    <option value="<?php echo $vehiculo['number']; ?>">
-                        <?php echo "ID: " . $vehiculo['number'] . " - Placa: " . $vehiculo['license_plate'] . " - Modelo: " . $vehiculo['model']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit" name="assign_vehicle">Asignar Vehículo</button>
-        </form>
-    <?php elseif (isset($vehiculosDisponibles) && count($vehiculosDisponibles) == 0): ?>
-        <p>No hay vehículos disponibles en el almacén de este empleado.</p>
+                <h4>Detalles de la Ruta</h4>
+                <p><strong>Punto de Inicio:</strong> <?php echo $order['starting_point']; ?></p>
+                <p><strong>Punto de Destino:</strong> <?php echo $order['end_point']; ?></p>
+                <p><strong>Fecha de Inicio:</strong> <?php echo $order['starting_date']; ?></p>
+                <p><strong>Fecha Estimada de Llegada:</strong> <?php echo $order['est_arrival']; ?></p>
+
+                <h4>Contenido del Pedido</h4>
+                <?php
+                $shipment_id = $order['shipment_id'];
+                include '../../config/connection.php';
+                $sqlItems = "SELECT it.name AS item_name, it.description
+                             FROM Package p
+                             JOIN Item it ON p.item = it.code
+                             WHERE p.shipment = ?";
+                $stmtItems = $conn->prepare($sqlItems);
+                $stmtItems->bind_param("i", $shipment_id);
+                $stmtItems->execute();
+                $items = $stmtItems->get_result()->fetch_all(MYSQLI_ASSOC);
+                $stmtItems->close();
+                ?>
+                <ul>
+                    <?php foreach ($items as $item): ?>
+                        <li><?php echo $item['item_name'] . ': ' . $item['description']; ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <hr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No tienes pedidos asignados.</p>
     <?php endif; ?>
 </body>
 </html>

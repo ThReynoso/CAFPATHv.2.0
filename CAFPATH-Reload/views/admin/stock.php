@@ -35,10 +35,8 @@
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $selectedWarehouse = $_POST['warehouse_code'];
-        $sql = "SELECT Item.name AS product_name, Inventory.stock AS stock_code, Stock.amount AS quantity 
-                FROM Inventory 
-                JOIN Stock ON Inventory.stock = Stock.code 
-                JOIN Item ON Inventory.item = Item.code 
+        $sql = "SELECT name AS product_name, amount AS quantity 
+                FROM Stock
                 WHERE Stock.warehouse = '$selectedWarehouse'";
         $result = $conn->query($sql);
 

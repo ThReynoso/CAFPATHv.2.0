@@ -3,9 +3,9 @@
         <div class="footer-section">
             <h3 data-translate="footerLegal">Legal</h3>
             <ul>
-                <li><a href="../cafpath/views/public/privacy-policy.php" data-translate="footerPrivacyPolicy">Privacy Policy</a></li>
-                <li><a href="../cafpath/views/public/terms-of-service.php" data-translate="footerTermsOfService">Terms of Service</a></li>
-                <li><a href="../cafpath/views/public/cookie-policy.php" data-translate="footerCookiePolicy">Cookie Policy</a></li>
+                <li><a href="../cafpath-reload/views/public/privacy-policy.php" data-translate="footerPrivacyPolicy">Privacy Policy</a></li>
+                <li><a href="../cafpath-reload/views/public/terms-of-service.php" data-translate="footerTermsOfService">Terms of Service</a></li>
+                <li><a href="../cafpath-reload/views/public/cookie-policy.php" data-translate="footerCookiePolicy">Cookie Policy</a></li>
             </ul>
         </div>
         <div class="footer-section">
@@ -47,7 +47,8 @@
         </div>
         <div class="footer-section">
             <h3 data-translate="footerContactUs">Contact Us</h3>
-            <p data-translate="footerContactUsDescription">If you have any questions or feedback, please contact us at:</p>
+            <p data-translate="footerContactUsDescription">If you have any questions or feedback, </p>
+            <p data-translate="footerContactUsDescription2">please contact us at:</p>
             <p data-translate="footerEmail">Email: info@cafpath.com</p>
             <p data-translate="footerPhone">Phone: +1 (123) 456-7890</p>
         </div>

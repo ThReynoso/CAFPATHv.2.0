@@ -38,17 +38,18 @@ if ($stmt_rutas->error) {
             <table border="1">
                 <tr>
                     <th>ID Paquete</th>
-                    <th>Paquete</th>
+                    <th>CLiente</th>
                     <th>Calle</th>
                     <th>Colonia</th>
                     <th>Número</th>
                 </tr>
                 <?php
-                $sql_detalles = "SELECT p.item AS paquete, c.street, c.colony, c.number
-                                  FROM RutaDetalles AS r
-                                  JOIN Package AS p ON r.id_paquete = p.shipment
-                                  JOIN Client AS c ON p.shipment = c.num
-                                  WHERE r.id_ruta = ?";
+                $sql_detalles = "SELECT S.num AS paquete, CONCAT(c.name, ' ', c.lastname, ' ', COALESCE(c.surname, '')) AS cliente, 
+                c.street, c.colony, c.number
+         FROM RutaDetalles AS r
+         JOIN Shipment AS S ON r.id_paquete = S.num
+         JOIN Client AS c ON S.client = c.num
+         WHERE r.id_ruta = ?";
 
                 $stmt_detalles = $conn->prepare($sql_detalles);
                 $stmt_detalles->bind_param("i", $ruta['id_ruta']);
@@ -60,6 +61,7 @@ if ($stmt_rutas->error) {
                     foreach ($detalles as $detalle): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($detalle['paquete']); ?></td>
+                            <td><?php echo htmlspecialchars($detalle['cliente']); ?></td>
                             <td><?php echo htmlspecialchars($detalle['street']); ?></td>
                             <td><?php echo htmlspecialchars($detalle['colony']); ?></td>
                             <td><?php echo htmlspecialchars($detalle['number']); ?></td>

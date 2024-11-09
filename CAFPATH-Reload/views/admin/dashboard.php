@@ -1,7 +1,18 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'R001') {
+    header("Location: ../auth/LoginViewEmployee.php");
+    exit();
+}
+if (!isset($_SESSION['username'])) {
+    header("Location: ../auth/LoginViewEmployee.php");
+    exit();
+}
+
+$username = $_SESSION['username'];
+?>
 <script src="../../assets/js/main.js" defer></script>
 <link rel="stylesheet" href="../../assets/css/style.css">
-
 <div class="layout">
     <header>
         <?php include '../partials/header.php'; ?>
@@ -21,20 +32,12 @@
             <br>
             <li><a href="#" id="link-routes" style="text-decoration: none; color: var(--white);">Routes Created</a></li>
             <br>
-            <li><a href="../../app/Controllers/tracking.php">Tracking</a></li>
+            <li><a href="#" id="link-tracking" style="text-decoration: none; color: var(--white);">Tracking</a></li>
         </ul>
     </nav>
     
     <main id="main-content">
-        <h2>Bienvenido, 
-            <?php 
-            if (isset($_SESSION['username'])) {
-                echo $_SESSION['username']; 
-            } else {
-                echo "Invitado"; // Mensaje alternativo si 'username' no está definido
-            }
-            ?>
-        </h2>
+    <h2>Bienvenido, <?php echo htmlspecialchars($username); ?></h2>
     </main>
     
     <article class="widget">Info</article>
@@ -46,7 +49,6 @@
 </div>
 
 <script>
-    // Función para cargar el contenido dinámicamente en main-content
     function loadContent(url) {
         fetch(url)
             .then(response => {
@@ -63,8 +65,6 @@
                 document.getElementById('main-content').innerHTML = "<p>Error al cargar el contenido.</p>";
             });
     }
-
-    // Asignación de eventos a los enlaces del menú
 
     document.getElementById('link-newEmployee').addEventListener('click', function(event) {
         event.preventDefault();
@@ -85,6 +85,11 @@
     document.getElementById('link-routes').addEventListener('click', function(event) {
         event.preventDefault();
         loadContent('routes.php');
+    });
+
+    document.getElementById('link-tracking').addEventListener('click', function(event) {
+        event.preventDefault();
+        loadContent('tracking.html');
     });
 
 </script>

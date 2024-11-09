@@ -419,7 +419,7 @@ main {
 .social-link {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     gap: 10px;
     text-decoration: none;
     color: white;
@@ -775,6 +775,328 @@ h1 {
 }
 
 /* MODIFICADO */
+
+/* Privacy Policy Styles */
+.privacy-container {
+    max-width: 1200px;
+    margin: 8rem auto 4rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.privacy-title {
+    font-size: 3rem;
+    color: var(--darkgrey);
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--skyblue);
+    padding-bottom: 1rem;
+}
+
+.privacy-section {
+    margin-bottom: 3rem;
+}
+
+.privacy-section-title {
+    font-size: 2.4rem;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--lightgrey);
+}
+
+.privacy-text {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--darkgrey);
+    margin-bottom: 1.5rem;
+}
+
+.privacy-list {
+    list-style: none;
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.privacy-list-item {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.privacy-list-item::before {
+    content: "•";
+    color: var(--skyblue);
+    font-weight: bold;
+    position: absolute;
+    left: -2rem;
+}
+
+.privacy-table-contents {
+    background-color: var(--lightblue);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.privacy-table-contents ol {
+    margin: 0;
+    padding-left: 2rem;
+}
+
+.privacy-table-contents li {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.privacy-table-contents a {
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.privacy-table-contents a:hover {
+    text-decoration: underline;
+}
+
+.privacy-highlight {
+    font-weight: bold;
+    color: var(--skyblue);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .privacy-container {
+        margin: 6rem 1rem 2rem;
+        padding: 1.5rem;
+    }
+
+    .privacy-title {
+        font-size: 2.4rem;
+    }
+
+    .privacy-section-title {
+        font-size: 2rem;
+    }
+
+    .privacy-text, 
+    .privacy-list-item {
+        font-size: 1.4rem;
+    }
+}
+
+/* Cookie Policy Styles */
+.cookie-container {
+    max-width: 1200px;
+    margin: 8rem auto 4rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cookie-title {
+    font-size: 3rem;
+    color: var(--darkgrey);
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--skyblue);
+    padding-bottom: 1rem;
+}
+
+.cookie-section {
+    margin-bottom: 3rem;
+}
+
+.cookie-section-title {
+    font-size: 2.4rem;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--lightgrey);
+}
+
+.cookie-text {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--darkgrey);
+    margin-bottom: 1.5rem;
+}
+
+.cookie-list {
+    list-style: none;
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.cookie-list-item {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.cookie-list-item::before {
+    content: "•";
+    color: var(--skyblue);
+    font-weight: bold;
+    position: absolute;
+    left: -2rem;
+}
+
+.cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+}
+
+.cookie-table th,
+.cookie-table td {
+    border: 1px solid var(--lightgrey);
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.cookie-table th {
+    background-color: var(--lightblue);
+    color: var(--darkgrey);
+    font-weight: bold;
+}
+
+.cookie-table tr:nth-child(even) {
+    background-color: var(--lightgrey);
+}
+
+.cookie-highlight {
+    font-weight: bold;
+    color: var(--skyblue);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cookie-container {
+        margin: 6rem 1rem 2rem;
+        padding: 1.5rem;
+    }
+
+    .cookie-title {
+        font-size: 2.4rem;
+    }
+
+    .cookie-section-title {
+        font-size: 2rem;
+    }
+
+    .cookie-text, 
+    .cookie-list-item {
+        font-size: 1.4rem;
+    }
+
+    .cookie-table {
+        font-size: 1.4rem;
+    }
+
+    .cookie-table th,
+    .cookie-table td {
+        padding: 0.8rem;
+    }
+}
+
+/* Terms of Service Styles */
+.terms-container {
+    max-width: 1200px;
+    margin: 8rem auto 4rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.terms-title {
+    font-size: 3rem;
+    color: var(--darkgrey);
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--skyblue);
+    padding-bottom: 1rem;
+}
+
+.terms-section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.terms-section-title {
+    font-size: 2.4rem;
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--lightgrey);
+}
+
+.terms-text {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--darkgrey);
+    margin-bottom: 1.5rem;
+}
+
+.terms-list {
+    list-style: none;
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.terms-list-item {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.terms-list-item::before {
+    content: "•";
+    color: var(--skyblue);
+    font-weight: bold;
+    position: absolute;
+    left: -2rem;
+}
+
+.terms-highlight {
+    font-weight: bold;
+    color: var(--skyblue);
+}
+
+/* Responsive adjustments for Terms of Service */
+@media (max-width: 768px) {
+    .terms-container {
+        margin: 6rem 1rem 2rem;
+        padding: 1.5rem;
+    }
+
+    .terms-title {
+        font-size: 2.4rem;
+    }
+
+    .terms-section-title {
+        font-size: 2rem;
+    }
+
+    .terms-text, 
+    .terms-list-item {
+        font-size: 1.4rem;
+    }
+
+    .terms-section {
+        padding: 1.5rem;
+    }
+}
 
 /* New Employee Registration styles 
 .new-employee-body {

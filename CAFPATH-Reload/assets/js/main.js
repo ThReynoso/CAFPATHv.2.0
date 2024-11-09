@@ -6,8 +6,14 @@ function scrollToSection(sectionId) {
     }
 }
 function changeLanguage(lang) {
-    // Fetch translations from the JSON file
-    fetch('assets/js/translations.json')
+    // Ajustar la ruta según la ubicación actual de la página
+    const currentPath = window.location.pathname;
+    const translationsPath = currentPath.includes('/views/public/') 
+        ? '../../assets/js/translations.json' 
+        : 'assets/js/translations.json';
+
+    // Fetch translations from the JSON file with the correct path
+    fetch(translationsPath)
         .then(response => response.json())
         .then(translations => {
             // Store the selected language in localStorage
