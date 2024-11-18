@@ -1,0 +1,322 @@
+/* Custom variables - keep these */
+
+:root {
+    --darkgrey: #333;
+    /* Dark grey color for text and elements */
+    --black: #000000;
+    /* Black color for text and elements */
+    --white: #ffffff;
+    /* White color for elements in white theme */
+    --blue: rgb(56, 92, 173);
+    /* Blue color for text and elements */
+    --skyblue: rgb(35, 141, 193);
+    /* Sky blue color for text and elements */
+    --lightgrey: #f0f0f0;
+    /* Light grey color for background in white theme */
+}
+
+
+/* Custom hover effects */
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.03);
+}
+
+
+/* Keep specific custom styles for elements that Bootstrap doesn't cover */
+
+.service-icon {
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+
+/* Keep any custom responsive adjustments */
+
+@media (max-width: 768px) {
+    /* Custom responsive styles */
+}
+
+
+/* Remove all styles that Bootstrap already provides, such as:
+   - Basic typography
+   - Grid system
+   - Cards
+   - Buttons
+   - Spacing utilities
+   - Flex utilities
+   - Colors
+   - Shadows
+*/
+
+
+/* Theme switcher styles */
+
+[data-bs-theme="dark"] {
+    --bs-body-color: #dee2e6;
+    --bs-body-bg: #212529;
+}
+
+[data-bs-theme="dark"] .navbar {
+    background-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .navbar-light .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+
+/* Theme switcher icon styles */
+
+#theme-switcher .icon-sun,
+#theme-switcher .icon-moon {
+    transition: transform 0.5s ease;
+}
+
+[data-bs-theme="dark"] #theme-switcher .icon-sun {
+    display: none;
+}
+
+[data-bs-theme="dark"] #theme-switcher .icon-moon {
+    display: inline-block !important;
+}
+
+
+/* Add these styles */
+
+.testimonial-card {
+    position: relative;
+}
+
+.testimonial-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--skyblue);
+    opacity: 0.7;
+}
+
+
+/* Login page styles */
+
+.login-body {
+    background-color: var(--lightblue);
+}
+
+.login-card {
+    max-width: 400px;
+    width: 90%;
+}
+
+.logo {
+    max-width: 200px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    user-select: none;
+    color: #6c757d;
+    /* Bootstrap's secondary color */
+}
+
+.password-toggle:hover {
+    color: var(--blue);
+}
+
+
+/* Optional: Custom button styles if you want to override Bootstrap */
+
+.btn-primary {
+    background-color: var(--blue);
+    border-color: var(--blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--skyblue);
+    border-color: var(--skyblue);
+}
+
+
+/* Chat Widget Styles */
+.chat-widget {
+    max-width: 350px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.chat-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.chat-title i {
+    font-size: 1.2rem;
+}
+
+.chat-controls button {
+    background: transparent;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.chat-controls button:hover {
+    transform: scale(1.1);
+}
+
+.chat-body {
+    height: 350px;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    animation: slideIn 0.3s ease;
+}
+
+.message.support {
+    align-self: flex-start;
+    background-color: var(--lightgrey);
+    border-bottom-left-radius: 5px;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: var(--blue);
+    color: var(--white);
+    border-bottom-right-radius: 5px;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-content p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 5px;
+    align-self: flex-end;
+}
+
+.chat-input {
+    padding: 15px;
+    background-color: var(--white);
+    border-top: 1px solid var(--lightgrey);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px 15px;
+    border: 1px solid var(--lightgrey);
+    border-radius: 20px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.chat-input input:focus {
+    border-color: var(--skyblue);
+}
+
+.send-message {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.send-message:hover {
+    background-color: var(--skyblue);
+    transform: scale(1.05);
+}
+
+/* Animaciones para los mensajes */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .chat-widget {
+        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    .chat-header {
+        border-radius: 0;
+    }
+
+    .chat-body {
+        height: calc(100vh - 130px);
+    }
+}
